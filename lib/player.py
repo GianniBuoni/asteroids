@@ -1,7 +1,7 @@
 import pygame
 from os.path import join
 from lib.constants import *
-from lib.constants import PLAYER_SPEED, SCREEN_WIDTH, SCREEN_HEIGHT
+from lib.constants import PLAYER_SPEED, SCREEN_WIDTH, SCREEN_HEIGHT, SHOT_COOLDOWN
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, groups) -> None:
@@ -16,11 +16,24 @@ class Player(pygame.sprite.Sprite):
         )
 
         self.direction = pygame.Vector2()
+        self.shot_cooldown = 0
+
+    def shoot(self):
+        if self.shot_cooldown <= 0:
+            print("Shots fired!")
+            self.shot_cooldown = SHOT_COOLDOWN
+
 
     def update(self, dt):
+        self.shot_cooldown -= dt
         keys = pygame.key.get_pressed()
+
+        # position
         self.direction.x = int(keys[pygame.K_RIGHT]) - int(keys[pygame.K_LEFT])
         self.direction.y = int(keys[pygame.K_DOWN]) - int(keys[pygame.K_UP])
         self.direction = self.direction.normalize() if self.direction else self.direction
-
         self.rect.center += self.direction * PLAYER_SPEED * dt #type:ignore
+
+        # shoot a laser
+        if keys[pygame.K_SPACE]:
+            self.shoot()
