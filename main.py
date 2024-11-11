@@ -33,6 +33,14 @@ while running:
             rand_y = randint(-100, 0)
             Asteroid(asteroid_surface, (rand_x, rand_y), (all_sprites, asteroid_sprites))
 
+    for shot in shot_sprites:
+        if pygame.sprite.spritecollide(shot, asteroid_sprites, True):
+            shot.kill()
+
+    if pygame.sprite.spritecollide(player, asteroid_sprites, False):
+        print("GAME OVER MAN, GAME OVER!")
+        running = False
+
     # update sprites
     all_sprites.update(dt)
 
