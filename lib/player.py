@@ -2,7 +2,7 @@ import pygame
 from os.path import join
 from lib.constants import *
 from lib.constants import PLAYER_SPEED, SCREEN_WIDTH, SCREEN_HEIGHT, SHOT_COOLDOWN
-from lib.groups import all_sprites
+from lib.groups import all_sprites, shot_sprites
 from lib.shot import Shot
 
 class Player(pygame.sprite.Sprite):
@@ -23,7 +23,7 @@ class Player(pygame.sprite.Sprite):
 
     def shoot(self):
         if self.shot_cooldown <= 0:
-            Shot(self.shot_surface, self.rect.midtop, all_sprites) #type: ignore
+            Shot(self.shot_surface, self.rect.midtop, (all_sprites, shot_sprites)) #type: ignore
             self.shot_cooldown = SHOT_COOLDOWN
 
 
