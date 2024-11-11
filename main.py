@@ -1,5 +1,6 @@
 import pygame
 from lib.constants import SCREEN_WIDTH, SCREEN_HEIGHT
+from lib.player import Player
 
 # game initialization
 pygame.init()
@@ -8,6 +9,10 @@ pygame.display.set_caption("Asteroids")
 clock = pygame.time.Clock()
 running = True
 
+# sprites
+all_sprites = pygame.sprite.Group()
+player = Player(all_sprites)
+
 # game loop
 while running:
     dt = clock.tick(60) / 1000
@@ -15,7 +20,13 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-    # draw
+
+    # update sprites
+    all_sprites.update(dt)
+
+    # draw sprites
     screen.fill("grey9")
-    # update
+    all_sprites.draw(screen)
+
+    # update display
     pygame.display.update()
