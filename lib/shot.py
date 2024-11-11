@@ -1,14 +1,17 @@
+# pyright: reportOptionalMemberAccess = false
+
 import pygame
+from lib.constants import SHOT_SPEED
 
-from circleshape import CircleShape
-from constants import *
+class Shot(pygame.sprite.Sprite):
+    def __init__(self, surface, pos, groups) -> None:
+        super().__init__(groups)
+        self.image = surface
+        self.rect = self.image.get_frect(
+            midbottom = pos
+        )
 
-class Shot(CircleShape):
-    def __init__(self, x, y):
-        super().__init__(x, y, SHOT_RADIUS)
-
-    def draw(self, screen):
-        pygame.draw.circle(screen, "white", self.position, self.radius, 2)
-
-    def update(self, dt):
-        self.position += self.velocity * dt
+    def update(self, dt) -> None:
+        self.rect.top -= SHOT_SPEED * dt
+        if self.rect.bottom < 0:
+            self.kill()

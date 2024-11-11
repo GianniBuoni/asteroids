@@ -1,5 +1,6 @@
 import pygame
 from lib.constants import SCREEN_WIDTH, SCREEN_HEIGHT
+from lib.groups import all_sprites
 from lib.player import Player
 
 # game initialization
@@ -9,8 +10,6 @@ pygame.display.set_caption("Asteroids")
 clock = pygame.time.Clock()
 running = True
 
-# sprites
-all_sprites = pygame.sprite.Group()
 player = Player(all_sprites)
 
 # game loop
