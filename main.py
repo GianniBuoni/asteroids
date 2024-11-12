@@ -25,11 +25,11 @@ while running:
             Asteroid(asteroid_surface, (rand_x, rand_y), (all_sprites, asteroid_sprites))
 
     for shot in shot_sprites:
-        if pygame.sprite.spritecollide(shot, asteroid_sprites, True):
+        if pygame.sprite.spritecollide(shot, asteroid_sprites, True, pygame.sprite.collide_mask):
             score += 1
             shot.kill()
 
-    if pygame.sprite.spritecollide(player, asteroid_sprites, False):
+    if pygame.sprite.spritecollide(player, asteroid_sprites, False, pygame.sprite.collide_mask):
         print(f"GAME OVER MAN, GAME OVER!\nSCORE: {score}")
         running = False
 
