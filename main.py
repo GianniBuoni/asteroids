@@ -1,30 +1,21 @@
 import pygame
-from os.path import join
 from random import randint
+
 from lib.asteroid import Asteroid
 from lib.groups import all_sprites, asteroid_sprites, shot_sprites
-from lib.player import Player
-from lib.constants import SCREEN_WIDTH, SCREEN_HEIGHT, ASTEROID_SPAWN_RATE
+from lib.variables import (
+    asteroid_event, asteroid_surface, clock,
+    display_score,player, running, screen, score
+)
+from lib.constants import SCREEN_WIDTH
 
 # game initialization
 pygame.init()
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Asteroids")
-clock = pygame.time.Clock()
-running = True
 
-# sprites
-asteroid_surface = pygame.image.load(join("assets", "meteor.png")).convert_alpha()
-player = Player(all_sprites)
-
-# events
-asteroid_event = pygame.event.custom_type()
-pygame.time.set_timer(asteroid_event, ASTEROID_SPAWN_RATE)
-
-# game loop
+# event loop
 while running:
     dt = clock.tick(60) / 1000
-    # event loop
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -35,18 +26,20 @@ while running:
 
     for shot in shot_sprites:
         if pygame.sprite.spritecollide(shot, asteroid_sprites, True):
+            score += 1
             shot.kill()
 
     if pygame.sprite.spritecollide(player, asteroid_sprites, False):
-        print("GAME OVER MAN, GAME OVER!")
+        print(f"GAME OVER MAN, GAME OVER!\nSCORE: {score}")
         running = False
 
     # update sprites
     all_sprites.update(dt)
 
     # draw sprites
-    screen.fill("grey9")
+    screen.fill("#322e3f")
     all_sprites.draw(screen)
+    display_score(str(score))
 
     # update display
     pygame.display.update()
