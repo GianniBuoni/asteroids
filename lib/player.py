@@ -17,8 +17,6 @@ class Player(pygame.sprite.Sprite):
             center = (SCREEN_WIDTH / 2, SCREEN_HEIGHT/2)
         )
 
-        self.mask = pygame.mask.from_surface(self.image)
-
         self.direction = pygame.Vector2()
         self.shot_surface = pygame.image.load(join("assets", "laser.png"))
         self.shot_cooldown = 0

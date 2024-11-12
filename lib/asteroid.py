@@ -11,7 +11,6 @@ class Asteroid(pygame.sprite.Sprite):
         self.rect = self.image.get_frect(
             center = pos
         )
-        self.mask = pygame.mask.from_surface(self.image)
         self.kill_timer = 3.00
         self.direction = pygame.Vector2(uniform(-0.5, 0.5), 1)
 

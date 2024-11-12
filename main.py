@@ -25,7 +25,7 @@ while running:
             Asteroid(asteroid_surface, (rand_x, rand_y), (all_sprites, asteroid_sprites))
 
     for shot in shot_sprites:
-        if pygame.sprite.spritecollide(shot, asteroid_sprites, True, pygame.sprite.collide_mask):
+        if pygame.sprite.spritecollide(shot, asteroid_sprites, True):
             score += 1
             shot.kill()
 
