@@ -2,10 +2,11 @@ import pygame
 from random import randint
 
 from lib.asteroid import Asteroid
+from lib.explosion_animation import ExpolsionAnimation
 from lib.groups import all_sprites, asteroid_sprites, shot_sprites
 from lib.variables import (
     asteroid_event, asteroid_surface, clock,
-    display_score,player, running, screen, score
+    display_score,player, explosion_frames, running, screen, score
 )
 from lib.constants import SCREEN_WIDTH
 
@@ -28,6 +29,7 @@ while running:
         if pygame.sprite.spritecollide(shot, asteroid_sprites, True):
             score += 1
             shot.kill()
+            ExpolsionAnimation(explosion_frames, shot.rect.midtop, all_sprites)
 
     if pygame.sprite.spritecollide(player, asteroid_sprites, False, pygame.sprite.collide_mask):
         print(f"GAME OVER MAN, GAME OVER!\nSCORE: {score}")

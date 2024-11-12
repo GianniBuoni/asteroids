@@ -13,6 +13,11 @@ score = 0
 # imports
 player = Player(all_sprites)
 asteroid_surface = pygame.image.load(join("assets", "meteor.png")).convert_alpha()
+explosion_frames = [
+    pygame.image.load(
+        join("assets", "explosion", f"{i}.png")
+    ).convert_alpha() for i in range(21)
+]
 
 # events
 asteroid_event = pygame.event.custom_type()
