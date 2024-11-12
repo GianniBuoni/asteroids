@@ -4,6 +4,7 @@ from lib.constants import *
 from lib.constants import PLAYER_SPEED, SCREEN_WIDTH, SCREEN_HEIGHT, SHOT_COOLDOWN
 from lib.groups import all_sprites, shot_sprites
 from lib.shot import Shot
+from lib.variables import laser_sound
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, groups) -> None:
@@ -25,6 +26,7 @@ class Player(pygame.sprite.Sprite):
         if self.shot_cooldown <= 0:
             Shot(self.shot_surface, self.rect.midtop, (all_sprites, shot_sprites)) #type: ignore
             self.shot_cooldown = SHOT_COOLDOWN
+            laser_sound.play()
 
 
     def update(self, dt):
